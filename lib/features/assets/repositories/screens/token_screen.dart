@@ -90,22 +90,24 @@ class _TokenScreenState extends State<TokenScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: _refresh,
-        child: ListView.builder(
-          controller: _controller,
-          physics: const AlwaysScrollableScrollPhysics(),
-          itemCount: _items.length + (_loading ? 1 : 0),
-          itemBuilder: (context, index) {
-            if (index >= _items.length) {
-              return const Padding(
-                padding: EdgeInsets.symmetric(vertical: 24),
-                child: Center(child: CircularProgressIndicator()),
-              );
-            }
-            final token = _items[index];
-            return TokenItem(token: token, index: index);
-          },
+      body: SafeArea(
+        child: RefreshIndicator(
+          onRefresh: _refresh,
+          child: ListView.builder(
+            controller: _controller,
+            physics: const AlwaysScrollableScrollPhysics(),
+            itemCount: _items.length + (_loading ? 1 : 0),
+            itemBuilder: (context, index) {
+              if (index >= _items.length) {
+                return const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 24),
+                  child: Center(child: CircularProgressIndicator()),
+                );
+              }
+              final token = _items[index];
+              return TokenItem(token: token, index: index);
+            },
+          ),
         ),
       ),
     );
